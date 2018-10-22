@@ -1,3 +1,6 @@
+# Sebastian Henz (2018)
+# License: MIT (see file LICENSE for details)
+#
 # Simulate the interactions of predator and prey populations.
 #
 # Predators lose one energy each movement step. If energy falls to 0 they die.
@@ -5,7 +8,6 @@
 # increases the energy. Movement is random but neighboring prey is preferred.
 # Prey gains one energy each movement step and produces one offspring if energy
 # is above threshold.
-
 
 
 library(dplyr)
