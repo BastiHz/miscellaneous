@@ -21,7 +21,11 @@ plot(
     ann = FALSE,
     asp = 0.25  # reduced aspect ratio to make the effect more visible
 )
-axis(1, at = seq(0, 2 * pi, pi / 2), labels = paste(seq(0, 2, 0.5), "\u03C0"))
+axis(
+    1,
+    at = seq(0, 2 * pi, pi / 2),
+    labels = paste(seq(0, 2, 0.5), "\u03C0")
+)
 for (f in frequency) {
     lines(x, sin(x * f))
 }
