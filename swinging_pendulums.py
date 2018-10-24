@@ -17,9 +17,9 @@ import pygame as pg
 
 pg.init()
 
-
 FPS = 60
 SCREEN_SIZE = (800, 600)
+BACKGROUND_COLOR = (60, 60, 60)
 CIRCLE_COLOR = (200, 200, 200)
 SCREEN_CENTER = (SCREEN_SIZE[0] // 2, SCREEN_SIZE[1] // 2)
 CIRCLE_RADIUS = 20
@@ -62,7 +62,6 @@ clock = pg.time.Clock()
 screen = pg.display.set_mode(SCREEN_SIZE)
 running = True
 
-
 while running:
     dt = clock.tick(FPS) / 1000  # seconds
     for event in pg.event.get():
@@ -72,7 +71,7 @@ while running:
             if event.key == pg.K_ESCAPE:
                 running = False
     
-    screen.fill((60, 60, 60))
+    screen.fill(BACKGROUND_COLOR)
     for p in pendulums:
         p.update(dt)
         p.draw()
