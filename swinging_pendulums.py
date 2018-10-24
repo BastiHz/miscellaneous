@@ -1,3 +1,14 @@
+# Sebastian Henz (2018)
+# License: MIT (see file LICENSE for details)
+#
+# This simulates the effect that can be seen when multiple pendulumns hanging
+# in a line swing at different frequencies. Most of the time the pattern seems
+# chaotic but at some points the lines converge.
+#
+# TODO:
+# - Add a vertical component so it looks more like a pendulum.
+
+
 import sys
 import math
 
