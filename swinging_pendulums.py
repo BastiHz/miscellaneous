@@ -7,6 +7,7 @@
 #
 # TODO:
 # - Add a vertical component so it looks more like a pendulum.
+# - Show them stacked vertically.
 
 
 import sys
