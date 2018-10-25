@@ -6,14 +6,6 @@
 # chaotic but at some points the lines converge.
 #
 # TODO:
-# - Add a vertical component so it looks more like a pendulum. Maybe with a sin wave?
-#	See the following R code. Does the motion look right?
-# 		x <- seq(0, 4 * pi, length.out = 1000)
-# 		y <- cos(x)
-# 		y2 <- (sin(2 * x - (pi / 2)) + 1) / 2
-# 		plot(x, y, type = "l")
-# 		lines(x, y2, col = "green")
-# 		abline(h = 0, col = "grey")
 # - Add command line options.
 # - Show them stacked vertically.
 
@@ -28,16 +20,18 @@ pg.init()
 
 FPS = 60
 SCREEN_SIZE = (800, 600)
-BACKGROUND_COLOR = (60, 60, 60)
-CIRCLE_COLOR = (200, 200, 200)
+BACKGROUND_COLOR = (250, 250, 250)
+CIRCLE_COLOR = (60, 60, 60)
 SCREEN_CENTER = (SCREEN_SIZE[0] // 2, SCREEN_SIZE[1] // 2)
 CIRCLE_RADIUS = 20
 MAX_DISPLACEMENT_X = 300
-MAX_DISPLACEMENT_Y = 100
+MAX_DISPLACEMENT_Y = 50
 MAX_ANGLE = math.pi * 2
 CYCLE_DURATION = 60  # seconds
 MIN_SWINGS_PER_CYCLE = 25
 MAX_SWINGS_PER_CYCLE = 35
+CIRCULAR = True
+CIRCULAR_DISPLACEMENT_Y_ADD = 100  # Makes it look better if CIRCULAR is True.
 
 
 class Pendulum:
@@ -51,11 +45,18 @@ class Pendulum:
         self.position[0] = (
             SCREEN_CENTER[0] + MAX_DISPLACEMENT_X * math.cos(self.angle)
         )
-        self.position[1] = (
-            SCREEN_CENTER[1] 
-			+ MAX_DISPLACEMENT_Y 
-			* ((math.sin((2 * self.angle) - (math.pi / 2)) + 1) / 2)
-        )
+        if not CIRCULAR:
+            self.position[1] = (
+                SCREEN_CENTER[1] 
+                + MAX_DISPLACEMENT_Y 
+                * math.sin((2 * self.angle) - (math.pi / 2))
+            )
+        else:
+            self.position[1] = (
+                SCREEN_CENTER[1] 
+                + (MAX_DISPLACEMENT_Y + CIRCULAR_DISPLACEMENT_Y_ADD)
+                * math.sin(self.angle)
+            )
     
     def draw(self):
         pg.draw.circle(
