@@ -6,7 +6,15 @@
 # chaotic but at some points the lines converge.
 #
 # TODO:
-# - Add a vertical component so it looks more like a pendulum.
+# - Add a vertical component so it looks more like a pendulum. Maybe with a sin wave?
+#	See the following R code. Does the motion look right?
+# 		x <- seq(0, 4 * pi, length.out = 1000)
+# 		y <- cos(x)
+# 		y2 <- (sin(x - (pi / 2)) + 1) / 2
+# 		plot(x, y, type = "l")
+# 		lines(x, y2, col = "green")
+# 		abline(h = 0, col = "grey")
+# - Add command line options.
 # - Show them stacked vertically.
 
 
