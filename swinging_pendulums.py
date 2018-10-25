@@ -10,7 +10,7 @@
 #	See the following R code. Does the motion look right?
 # 		x <- seq(0, 4 * pi, length.out = 1000)
 # 		y <- cos(x)
-# 		y2 <- (sin(x - (pi / 2)) + 1) / 2
+# 		y2 <- (sin(2 * x - (pi / 2)) + 1) / 2
 # 		plot(x, y, type = "l")
 # 		lines(x, y2, col = "green")
 # 		abline(h = 0, col = "grey")
@@ -33,6 +33,7 @@ CIRCLE_COLOR = (200, 200, 200)
 SCREEN_CENTER = (SCREEN_SIZE[0] // 2, SCREEN_SIZE[1] // 2)
 CIRCLE_RADIUS = 20
 MAX_DISPLACEMENT_X = 300
+MAX_DISPLACEMENT_Y = 100
 MAX_ANGLE = math.pi * 2
 CYCLE_DURATION = 60  # seconds
 MIN_SWINGS_PER_CYCLE = 25
@@ -49,6 +50,11 @@ class Pendulum:
         self.angle = (self.angle + self.angular_frequency * dt) % MAX_ANGLE
         self.position[0] = (
             SCREEN_CENTER[0] + MAX_DISPLACEMENT_X * math.cos(self.angle)
+        )
+        self.position[1] = (
+            SCREEN_CENTER[1] 
+			+ MAX_DISPLACEMENT_Y 
+			* ((math.sin((2 * self.angle) - (math.pi / 2)) + 1) / 2)
         )
     
     def draw(self):
