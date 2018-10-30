@@ -1,7 +1,8 @@
 # R
-.Rproj.user/
+.Rproj.user
 .Rhistory
 .RData
+.Ruserdata
 
 # Python
 venv/
