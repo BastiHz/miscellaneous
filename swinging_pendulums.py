@@ -30,7 +30,7 @@ MAX_ANGLE = math.pi * 2
 CYCLE_DURATION = 60  # seconds
 MIN_SWINGS_PER_CYCLE = 25
 MAX_SWINGS_PER_CYCLE = 35
-CIRCULAR = True
+CIRCULAR = False
 CIRCULAR_DISPLACEMENT_Y_ADD = 100  # Makes it look better if CIRCULAR is True.
 
 
