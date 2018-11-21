@@ -33,10 +33,12 @@ plot_semicircle <- function(x, y, radius, n_approx, side, ...) {
     # side: Either 1 or -1. Draw above horizontal if positive
     #     and below if negative.
     # ...: Further arguments to be passed to lines().
-    rs <- seq(0, pi, length.out = n_approx)
-    xc <- x + radius * cos(rs) * side
-    yc <- y + radius * sin(rs) * side
-    lines(xc, yc, ...)
+    angle <- seq(0, pi, length.out = n_approx)
+    lines(
+        x + radius * cos(angle) * side,
+        y + radius * sin(angle) * side,
+        ...
+    )
 }
 
 
