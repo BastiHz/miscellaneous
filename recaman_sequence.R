@@ -1,60 +1,71 @@
-
-# see Numberphile video:
+# Sebastian Henz (2018)
+# License: MIT (see file LICENSE for details)
+#
+# Entry in the On-Line Encyclopedia of Integer Sequences:
+# https://oeis.org/A005132
+#
+# Numberphile video:
 # https://www.youtube.com/watch?v=FGC5TdIiT9U
 
-racaman <- function(n) {
-  # n: length of sequence
-  if (n <= 1) return(0)
-  visited <- numeric(n)
-  visited[1] <- c(0)
-  last <- 0
-  step <- 1
-  for (i in 2:n) {
-    if (((last - step) < 0) | ((last - step) %in% visited)) {
-      last <- last + step
-    } else {
-      last <- last - step
+
+recaman <- function(n) {
+    recaman_seq <- integer(n + 1)
+    if (n == 0) return(recaman_seq)
+    for (i in 1:n) {
+        last <- recaman_seq[i]
+        difference <- last - i
+        if (difference <= 0 | difference %in% recaman_seq) {
+            recaman_seq[i + 1] <- last + i
+        } else {
+            recaman_seq[i + 1] <- difference
+        }
     }
-    visited[i] <- last
-    step <- step + 1
-  }
-  visited
+    recaman_seq
 }
 
 
-plot_half_circle <- function(x, y, r, n_steps, side, ...) {
-  # teilweise von StackOverflow
-  rs <- seq(0, pi, length.out = n_steps)
-  xc <- x + r * cos(rs) * side
-  yc <- y + r * sin(rs) * side
-  lines(xc, yc, ...)
+plot_semicircle <- function(x, y, radius, n_approx, side, ...) {
+    # Draw a semicircle into an existing plot. The semicircle begins and
+    # ends at the horizontal line.
+    # x, y: Circle center.
+    # radius: Circle radius.
+    # n_approx: Number of points to approximate the circle.
+    # side: Either 1 or -1. Draw above horizontal if positive
+    #     and below if negative.
+    # ...: Further arguments to be passed to lines().
+    rs <- seq(0, pi, length.out = n_approx)
+    xc <- x + radius * cos(rs) * side
+    yc <- y + radius * sin(rs) * side
+    lines(xc, yc, ...)
 }
 
 
-plot_racaman_circles <- function(n_racaman, n_steps_circles = 100) {
-  # n_racaman: length of sequence
-  # n_steps_circles: resolution of the semicircles
-  x <- racaman(n_racaman)
-  radii <- abs(diff(x)) / 2
-  centers <- (head(x, -1) + tail(x, -1)) / 2
-  up_down <- rep(c(-1, 1), length.out = n_racaman - 1)
+plot_recaman_semicircles <- function(recaman_seq, res_circles = 100) {
+    # res_circles: Resolution of the semicircles, number of points
+    #     to approximate circle shape.
+    radii <- abs(diff(recaman_seq)) / 2
+    centers <- (head(recaman_seq, -1) + recaman_seq[-1]) / 2
+    side <- rep(c(-1, 1), length.out = length(recaman_seq) - 1)
 
-  opar <- par(no.readonly = TRUE)
-  on.exit(par(opar))
-  par(mar = rep(0, 4))
-  plot(NULL, NULL, xlim = c(0, max(x)), ylim = c(-max(radii), max(radii)),
-       asp = 1, bty = "n", xlab = "", ylab = "", axes = FALSE)
-  for (i in seq_along(radii)) {
-    plot_half_circle(centers[i], 0, radii[i], n_steps_circles, up_down[i])
-  }
+    opar <- par(no.readonly = TRUE)
+    on.exit(par(opar))
+    par(mar = rep(0, 4))
+    plot(
+        NA,
+        NA,
+        xlim = c(0, max(recaman_seq)),
+        ylim = c(-max(radii), max(radii)),
+        asp = 1,
+        bty = "n",
+        ann = FALSE,
+        axes = FALSE
+    )
+    for (i in seq_along(radii)) {
+        plot_semicircle(centers[i], 0, radii[i], res_circles, side[i])
+    }
 }
 
-plot_racaman_circles(50)
-racaman(140)
 
-n <- 1000
-plot(0:(n-1), racaman(n))
-
-
-
-
+r <- recaman(99)
+r
+plot_recaman_semicircles(r)
