@@ -7,30 +7,31 @@
 # This is the animated companion script to chaos_game.R. It only does 
 # the polygons and not the fern.
 
-
 import math
+import os
 import random
 import pygame as pg
 
 
 # The important variables:
-N = 5
-MOVE_DISTANCE = 0.618
+N = 6
+MOVE_DISTANCE = 2/3
 
 
 DISPLAY_WIDTH = 800
 DISPLAY_HEIGHT = 800
 
+os.environ["SDL_VIDEO_CENTERED"] = "1"
 pg.init()
 display = pg.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
 clock = pg.time.Clock()
 canvas = display.copy()
 
-FPS = 60
+FPS = 30
 CORNER_COLOR = (100, 100, 100)
 POINT_COLOR = (200, 200, 200)
 TRACEPOINT_COLOR = (200, 0, 0)
-MARGIN = 10
+MARGIN = 20
 POINT_RADIUS = 3
 CORNERS = []
 for i in range(N):
@@ -67,7 +68,6 @@ while running:
     x = int(x - (x - target[0]) * MOVE_DISTANCE)
     y = int(y - (y - target[1]) * MOVE_DISTANCE)
     pg.draw.circle(canvas, POINT_COLOR, (x, y), POINT_RADIUS)
-
     display.blit(canvas, (0, 0))
     pg.draw.circle(display, TRACEPOINT_COLOR, (x, y), POINT_RADIUS)
     pg.display.update()
