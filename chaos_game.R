@@ -52,17 +52,19 @@ chaos_polygon <- function(n = 3, move_distance = 0.5,
     opar <- par(no.readonly = TRUE)
     on.exit(par(opar))
     par(mar = rep(0, 4))
-    plot(result, pch = 20, axes = TRUE, ann = FALSE, asp = 1, ...)
+    plot(result, pch = 20, axes = TRUE, ann = FALSE, asp = 1, cex = 0.25, ...)
 }
 
 # chaos_polygon()
-# chaos_polygon(num_points = 50000, cex = 0.2)
-# chaos_polygon(n = 4, move_distance = 0.55, num_points = 20000, cex = 0.25)
-# chaos_polygon(n = 5, move_distance = 0.62, num_points = 30000, cex = 0.2)
-# chaos_polygon(n = 6, move_distance = 2/3, cex = 0.2, num_points = 50000)
+# chaos_polygon(num_points = 50000)
+# chaos_polygon(n = 4, move_distance = 0.55, num_points = 20000)
+# chaos_polygon(n = 5, move_distance = 0.62, num_points = 30000)
+# chaos_polygon(n = 6, move_distance = 2/3, num_points = 50000)
 # chaos_polygon(n = 4, type = "l", num_points = 1000)
 # chaos_polygon(30, move_distance = 0.91, num_points = 2000)
 # chaos_polygon(2, move_distance = 0.7)
+# chaos_polygon(move_distance = 1.5)
+# chaos_polygon(move_distance = 1.99, num_points = 30000)
 
 
 chaos_fern <- function(num_points = 10000, params = "barnsley",
