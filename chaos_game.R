@@ -3,6 +3,10 @@
 #
 # Inspired by this Numberphile video:
 # https://www.youtube.com/watch?v=kbKtFN71Lfs
+#
+# This script includes the triangles made from random points and the fern shown
+# in the video.
+# For more info on the fern see https://en.wikipedia.org/wiki/Barnsley_fern
 
 
 chaos_polygon <- function(n = 3, move_distance = 0.5,
@@ -59,3 +63,62 @@ chaos_polygon <- function(n = 3, move_distance = 0.5,
 # chaos_polygon(n = 4, type = "l", num_points = 1000)
 # chaos_polygon(30, move_distance = 0.91, num_points = 2000)
 # chaos_polygon(2, move_distance = 0.7)
+
+
+chaos_fern <- function(num_points = 10000, params = "barnsley",
+                       plot = TRUE, ...) {
+    # params = Either the string "barnsley" or a data frame or matrix
+    #     containing the parameters a, b, c, d, e, f and p.
+    if ("character" %in% class(params) && params == "barnsley") {
+        params <- data.frame(
+            a = c(0, 0.85, 0.2, -0.15),
+            b = c(0, 0.04, -0.26 , 0.28),
+            c = c(0, -0.04 , 0.23, 0.26),
+            d = c(0.16, 0.85, 0.22, 0.24),
+            e = c(0, 0, 0, 0),
+            f = c(0, 1.6, 1.6, 0.44),
+            p = c(0.01, 0.85, 0.07, 0.07)
+        )
+    }
+    params <- as.matrix(params)
+
+    tracepoint <- c(0, 0)
+    param_index <- sample(
+        seq_len(nrow(params)),
+        num_points - 1,  # -1 because the first point is always (0, 0)
+        replace = TRUE,
+        prob = params[, "p"]
+    )
+    result <- data.frame(
+        x = numeric(num_points),
+        y = numeric(num_points)
+    )
+    abcd_index <- match(c("a", "b", "c", "d"), colnames(params))
+    ef_index <- match(c("e", "f"), colnames(params))
+    for (i in seq_len(num_points - 1)) {
+        k <- param_index[i]
+        m <- matrix(params[k, abcd_index], nrow = 2, byrow = TRUE)
+        tracepoint <- m %*% tracepoint + params[k, ef_index]
+        result[i + 1, ] <- tracepoint
+    }
+
+    if (!plot) return(result)
+    opar <- par(no.readonly = TRUE)
+    on.exit(par(opar))
+    par(mar = rep(0, 4))
+    plot(result, pch = 20, axes = TRUE, ann = FALSE, asp = 1, ...)
+}
+
+# chaos_fern(30000, col = "forestgreen", cex = 0.25)
+#
+# Different parameter set taken from Wikipedia:
+# alternative <- data.frame(
+#     a = c(0, 0.95, 0.035, -0.04 ),
+#     b = c(0, 0.005, -0.2, 0.2),
+#     c = c(0, -0.005, 0.16, 0.16),
+#     d = c(0.25, 0.93, 0.04, 0.04),
+#     e = c(0, -0.002, -0.09, 0.083),
+#     f = c(-0.4, 0.5, 0.02, 0.12),
+#     p = c(0.02, 0.84, 0.07, 0.07)
+# )
+# chaos_fern(20000, params = alternative, col = "forestgreen", cex = 0.2)
