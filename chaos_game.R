@@ -4,9 +4,9 @@
 # Inspired by this Numberphile video:
 # https://www.youtube.com/watch?v=kbKtFN71Lfs
 #
-# This script includes the triangles made from random points and the fern shown
-# in the video.
-# For more info on the fern see https://en.wikipedia.org/wiki/Barnsley_fern
+# This script includes the polygons made from random points and the fern shown
+# in the video. For an animated version of the polygons see chaos_game.py. For
+# more info on the fern see https://en.wikipedia.org/wiki/Barnsley_fern
 
 
 chaos_polygon <- function(n = 3, move_distance = 0.5,
