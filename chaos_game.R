@@ -10,7 +10,7 @@
 
 
 chaos_polygon <- function(n = 3, move_distance = 0.5,
-                          num_points = 10000, plot = TRUE, ...) {
+                          num_points = 10000, plot = TRUE, cex = 0.25, ...) {
     # Start with the corners of a regular polygon. Place a tracepoint somewhere
     # between those. Each step of the iteration choose a random corner and move
     # the tracepoint some distance towards that. Vary the number of corners and
@@ -52,7 +52,7 @@ chaos_polygon <- function(n = 3, move_distance = 0.5,
     opar <- par(no.readonly = TRUE)
     on.exit(par(opar))
     par(mar = rep(0, 4))
-    plot(result, pch = 20, axes = TRUE, ann = FALSE, asp = 1, cex = 0.25, ...)
+    plot(result, pch = 20, axes = TRUE, ann = FALSE, asp = 1, cex = cex, ...)
 }
 
 # chaos_polygon()
@@ -68,7 +68,7 @@ chaos_polygon <- function(n = 3, move_distance = 0.5,
 
 
 chaos_fern <- function(num_points = 10000, params = "barnsley",
-                       plot = TRUE, ...) {
+                       plot = TRUE, cex = 0.25, ...) {
     # params = Either the string "barnsley" or a data frame or matrix
     #     containing the parameters a, b, c, d, e, f and p.
     if ("character" %in% class(params) && params == "barnsley") {
@@ -108,10 +108,10 @@ chaos_fern <- function(num_points = 10000, params = "barnsley",
     opar <- par(no.readonly = TRUE)
     on.exit(par(opar))
     par(mar = rep(0, 4))
-    plot(result, pch = 20, axes = TRUE, ann = FALSE, asp = 1, ...)
+    plot(result, pch = 20, axes = TRUE, ann = FALSE, asp = 1, cex = cex, ...)
 }
 
-# chaos_fern(30000, col = "forestgreen", cex = 0.25)
+# chaos_fern(30000, col = "forestgreen")
 #
 # Different parameter set taken from Wikipedia:
 # alternative <- data.frame(
@@ -123,4 +123,4 @@ chaos_fern <- function(num_points = 10000, params = "barnsley",
 #     f = c(-0.4, 0.5, 0.02, 0.12),
 #     p = c(0.02, 0.84, 0.07, 0.07)
 # )
-# chaos_fern(20000, params = alternative, col = "forestgreen", cex = 0.2)
+# chaos_fern(20000, params = alternative, col = "forestgreen")
