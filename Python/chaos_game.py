@@ -1,11 +1,12 @@
-# Sebastian Henz (2018)
-# License: MIT (see file LICENSE for details)
-#
-# Inspired by this Numberphile video:
-# https://www.youtube.com/watch?v=kbKtFN71Lfs
-#
-# This is the animated companion script to chaos_game.R. It only does 
-# the polygons and not the fern.
+"""Sebastian Henz (2018)
+License: MIT (see file LICENSE for details)
+
+Inspired by this Numberphile video:
+https://www.youtube.com/watch?v=kbKtFN71Lfs
+
+This is the animated companion script to chaos_game.R. It only does
+the polygons and not the fern.
+"""
 
 import math
 import os
