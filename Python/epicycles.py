@@ -16,18 +16,18 @@ SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 1000
 FPS = 60
 LINE_COLOR = (255, 255, 255)
-CIRCLE_COLOR = (200, 200, 200, 50)
+CIRCLE_COLOR = (200, 200, 200, 75)
 DRAW_POINT_RADIUS = 3
 
 
 class Circle:
-    def __init__(self, radius, angle, speed, parent=None,
-                 clockwise=True, draw_line=False):
+    def __init__(self, radius, angle, speed,
+                 parent=None, clockwise=True, draw_line=False):
         # TODO: Find better name for variable foo. That is the point on a
         #    circle where either the center of the child circle is attached
         #    or where the point for drawing the line is.
 
-        self.radius = int(radius)  # pixel
+        self.radius = int(round(radius))  # pixel
         self.angle = angle  # radians
         self.speed = speed  # radians per second
         self.parent = parent
@@ -60,31 +60,26 @@ class Circle:
         center_int = [int(p) for p in self.center]
         pg.draw.circle(circle_surface, CIRCLE_COLOR, center_int,
                        self.radius, 1)
-        pg.draw.circle(circle_surface, CIRCLE_COLOR, foo_int,
-                       DRAW_POINT_RADIUS)
+        pg.draw.line(circle_surface, CIRCLE_COLOR, center_int, foo_int)
         if self.draw_line:
-            pg.draw.circle(circle_surface, LINE_COLOR,
-                           foo_int, DRAW_POINT_RADIUS)
             pg.draw.line(line_surface, LINE_COLOR, self.last_point,
                          foo_int)
 
 
-circles = []
-
 # square:
-for i in range(7):
-    n = 2 * i + 1
-    phase = 0 if i % 2 == 0 else pi
-    clockwise = i % 2 == 0
-    circles.append(Circle(300/n, phase, n, clockwise=clockwise))
+circles = [
+    Circle(300, pi/4, 1),
+    Circle(300/3**2, pi/4, 3, clockwise=False),
+    Circle(300/5**2, pi/4, 5),
+    Circle(300/7**2, pi/4, 7, clockwise=False),
+]
 
-# triangle:  Does not work. Why?
-# circles.append(Circle(300, 0, 1))
-# for i in range(1, 5):
-#     n = 2 * i
-#     phase = 0 if i % 2 == 0 else pi
-#     clockwise = i % 2 == 0
-#     circles.append(Circle(300/(n**2), phase, n, clockwise=clockwise))
+# triangle:
+# circles = [
+#     Circle(300, 0, 1),
+#     Circle(300/4, pi, 2, clockwise=False),
+#     Circle(300/16, 0, 4)
+# ]
 
 for i in range(1, len(circles)):
     circles[i].set_parent(circles[i-1])
