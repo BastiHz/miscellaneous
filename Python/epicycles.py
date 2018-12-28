@@ -3,6 +3,9 @@ License: MIT (see file LICENSE for details)
 
 """
 
+# TODO: Make radius a float to allow for very small circles.
+
+
 import os
 from math import pi, sin, cos
 
