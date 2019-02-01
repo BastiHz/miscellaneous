@@ -1,3 +1,0 @@
-The Dollar Game
-see this Numberphile video: https://www.youtube.com/watch?v=U33dsEcKgeQ
-Randomly generate a graph. Left click gives, right click takes.

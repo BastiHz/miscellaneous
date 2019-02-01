@@ -1,0 +1,3 @@
+Idle clicker game
+
+Some kind of tamagotchi style game. Maybe with a darker theme?
