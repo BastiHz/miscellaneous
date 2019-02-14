@@ -59,6 +59,7 @@ f <- function(lambda, precision = 7, max_iterations = 10000, start = 0.5,
 
 # Initialise x and y to make it faster to add the results to them.
 # TODO: Trim the tails containing zeros afterwards.
+
 len <- 1000
 max_return <- 500
 x <- y <- numeric(len * max_return)
