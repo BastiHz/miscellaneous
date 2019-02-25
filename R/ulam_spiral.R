@@ -1,7 +1,11 @@
 # https://en.wikipedia.org/wiki/Ulam_spiral
 
-sidelength <- 501  # must be > 1 and odd
+library(grid)
+
+
+sidelength <- 1001  # must be > 1 and odd
 n <- sidelength^2
+print(n)
 m <- matrix(NA, nrow = sidelength, ncol = sidelength)
 
 x <- y <- integer(n)
@@ -12,7 +16,7 @@ k <- 2
 for (i in seq_len(sidelength - 1)) {
     to <- k + i * 2 - 1
     x_diff[k:to] <- rep(c(1, 0) * s, each = i)
-    y_diff[k:to] <- rep(c(0, 1) * s * -1, each = i)
+    y_diff[k:to] <- rep(c(0, -1) * s, each = i)
     k <- to + 1
     s <- s * -1
 }
@@ -24,17 +28,16 @@ for (i in 2:n) {
 }
 m[cbind(y, x)] <- 1:n
 
+# sieve of eratosthenes
 primes <- rep(TRUE, n)
 primes[1] <- FALSE
 for (i in 2:sidelength) {
-    # sieve of eratosthenes
     if (primes[i]) {
         primes[seq(i + i, n, i)] <- FALSE
     }
 }
 primes <- seq_len(n)[primes]
-
 m <- matrix(m %in% primes, nrow = sidelength)
-library(grid)
+
 grid.newpage()
 grid.raster(!m, interpolate = FALSE)
