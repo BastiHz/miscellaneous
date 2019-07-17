@@ -1,26 +1,4 @@
 # Simulate the interactions of predator and prey populations.
-#
-# Predators lose one energy each movement step. If energy falls to 0 they die.
-# If it rises above threshold they produce one offspring. Each prey eaten
-# increases the energy. Movement is random but neighboring prey is preferred.
-# Prey gains one energy each movement step and produces one offspring if energy
-# is above threshold.
-#
-#
-# Copyright (C) 2019 Sebastian Henz
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 
 library(dplyr)
