@@ -4,8 +4,8 @@
 # two rows and columns.
 # Press ESC to exit the loop.
 
-width <- 30
-height <- 18
+width <- 40
+height <- 30
 
 # rules:
 b <- c(3)  # a cell is born if it has this many neighbors
@@ -23,6 +23,8 @@ shift_down <- c(height, 1:(height-1))
 shift_left <- c(2:width, 1)
 shift_up <- c(2:height, 1)
 
+generation <- 0
+alive <- c()
 while (TRUE) {
     neighbors <- m[, shift_right] +
         m[, shift_left] +
@@ -36,9 +38,9 @@ while (TRUE) {
     m_visible <- ifelse(m, "#", " ")
     m_visible <- cbind("|", m_visible, "|")
     m_visible <- rbind(
-        c(" ", rep("—", width), " "),  # "—" is an em dash
+        c("+", rep("—", width), "+"),  # "—" is an em dash
         m_visible,
-        c(" ", rep("—", width), " ")
+        c("+", rep("—", width), "+")
     )
     cat("\f")  # clear console, does not work in Rgui on Windows
     write.table(
@@ -47,5 +49,10 @@ while (TRUE) {
         col.names = FALSE,
         quote = FALSE
     )
+    generation <- generation + 1
+    alive <- c(alive, sum(m))
+    cat(paste0("generation ", generation, ", alive ", tail(alive, 1)))
     Sys.sleep(0.1)
 }
+
+plot(alive, type = "l", las = 1, xlab = "generation")
