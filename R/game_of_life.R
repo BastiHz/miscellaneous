@@ -1,4 +1,4 @@
-# Works best with a console that ca be cleared by cat("\014"). Otherwise it
+# Works best with a console that can be cleared by cat("\f"). Otherwise it
 # may not look right.
 # Make sure that the console is big enough to display the whole matrix plus
 # two rows and columns.
@@ -40,7 +40,7 @@ while (TRUE) {
         m_visible,
         c(" ", rep("—", width), " ")
     )
-    cat("\f")  # does not work in Rgui on Windows
+    cat("\f")  # clear console, does not work in Rgui on Windows
     write.table(
         m_visible,
         row.names = FALSE,
