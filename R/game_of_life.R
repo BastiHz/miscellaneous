@@ -7,12 +7,16 @@
 width <- 30
 height <- 18
 
+# rules:
+b <- c(3)  # a cell is born if it has this many neighbors
+s <- c(2, 3)  # a cell survives if it has this many neighbors
+
 # glider:
-m <- matrix(0, nrow = height, ncol = width)
-m[c(2, height+3, 2*height+1, 2*height+2, 2*height+3)] <- 1
+# m <- matrix(0, nrow = height, ncol = width)
+# m[c(2, height+3, 2*height+1, 2*height+2, 2*height+3)] <- 1
 
 # random:
-# m <- matrix(sample(c(T, F), width * height, replace = TRUE), nrow = height)
+m <- matrix(sample(c(T, F), width * height, replace = TRUE), nrow = height)
 
 shift_right <- c(width, 1:(width-1))
 shift_down <- c(height, 1:(height-1))
@@ -28,7 +32,7 @@ while (TRUE) {
         m[shift_down, shift_right] +
         m[shift_up, shift_left] +
         m[shift_down, shift_left]
-    m <- m & (neighbors == 2 | neighbors == 3) | !m & neighbors == 3
+    m <- m & neighbors %in% s | !m & neighbors %in% b
     m_visible <- ifelse(m, "#", " ")
     m_visible <- cbind("|", m_visible, "|")
     m_visible <- rbind(
