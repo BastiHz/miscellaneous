@@ -1,4 +1,4 @@
-# https://www.youtube.com/watch?v=pAMgUB51XZA
+# first half of this video: https://www.youtube.com/watch?v=pAMgUB51XZA
 
 get_gcd <- function(a, b) ifelse (b==0, a, get_gcd(b, a %% b))
 
