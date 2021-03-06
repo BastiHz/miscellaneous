@@ -1,1 +1,1 @@
-A collection of small and self-contained scripts. Little games, mathematical puzzles and half-baked ideas.
+A collection of random small scripts. Mostly just ideas, notes, and little tests.
